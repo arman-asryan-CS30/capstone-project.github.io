@@ -24,6 +24,12 @@ let suns = []; //Keep the suns in an array
 //
 let sunX; let sunY;
 
+//Grid
+let grid = []
+
+let selectedPlant;
+let plants = []
+
 //---------------------------Pea Shooter-----------------------------------------
 let peaIdle = []; peaShoot = [];
 
@@ -51,6 +57,17 @@ async function setup() {
   sunStart = millis()
   sunX = random(width)
   sunY = 0
+
+  grid = [
+      [0,1,0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0,1,0],
+      [0,1,0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0,1,0],
+      [0,1,0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0,1,0],
+      [0,1,0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0,1,0],
+  ]
 }
 
 //Display the menu
@@ -70,6 +87,19 @@ function menu() {
 function startGame() {
   gameOn = true;
   button.hide()
+}
+
+function drawGrid(grid) {
+  for (let y = 0; y < grid.length; y++) {
+    for (let x = 0; x < grid[y].length; x++) {
+      if (grid[y][x] === 1) {
+        fill(0, 169, 44)
+      }else{
+        fill(0, 205, 61)
+      }
+      square(x*150,(y+1)*150,150)
+    }
+  }
 }
 
 function charactersBar() {
@@ -95,13 +125,7 @@ function charactersBar() {
   text("150",225,130)
 }
 
-function grid() {
-  for (let x = 0; x < width ; x+=150) {
-    for (let y = 150; y < height ; y += 150) {
-      
-    }
-  }
-}
+
 
 //Generate a sun that falls
 function fallSun() {
@@ -130,6 +154,12 @@ function collectSun() {
   }
 }
 
+function placeCharacter() {
+  if (selectedPlant) {
+    image(selectedPlant, mouseX, mouseY,100,100);
+  }
+}
+
 
 function draw() {
   //Timer
@@ -141,25 +171,64 @@ function draw() {
   
 
   
-//   if (!gameOn) {
-//    menu()
-//  }
-//   else{
+   if (!gameOn) {
+    menu()
+  }
+   else{
+      drawGrid(grid)
+      
       charactersBar()
-      if (sunElapsed > 10000) { //Generate new sun every 5 seconds
+
+      //Render all chosen plants on the screen
+      for(let plant of plants){
+        image(plant.img, plant.x, plant.y,100,100)
+      }
+     
+      placeCharacter()
+    
+      
+      if (sunElapsed > 1000) { //Generate new sun every 5 seconds
     
         sunStart = millis();
         suns.push({x:round(random(width)), y:0})
       }
       fallSun()
     
-  //}
+  }
 }
 
 function mousePressed() {
   collectSun()
+
+  // Clicking Pea Shooter in character bar
+  if (
+    mouseX >= 150 &&
+    mouseX <= 300 &&
+    mouseY >= 0 &&
+    mouseY <= 150
+  ) {
+    selectedPlant = peaIdle[0];
+    return;
+  }
+
+  // Place plant on grid
+  if (selectedPlant && mouseY > 150) {
+
+    // Snap to grid
+    let gridX = floor(mouseX / 150) * 150 + 75;
+    let gridY = floor((mouseY - 150) / 150) * 150 + 225;
+
+    image(selectedPlant, gridX, gridY,100,100);
+
+    plants.push({
+      x: gridX,
+      y: gridY,
+      img: selectedPlant
+    });
+
+    selectedPlant = null;
 }
 
 
 
-
+}
