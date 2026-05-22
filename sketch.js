@@ -58,6 +58,8 @@ async function setup() {
   sunX = random(width)
   sunY = 0
 
+
+
   grid = [
       [0,1,0,1,0,1,0,1,0,1],
       [1,0,1,0,1,0,1,0,1,0],
@@ -70,25 +72,6 @@ async function setup() {
   ]
 }
 
-//Display the menu
-function menu() {
-  //Menu image
-  image(menuImg,width/2,height/2,width,height)
-  image(menuText,width/2,height*0.3,500,300)
-
- 
-  button.position(width/2-100, height*0.75)
-  button.size(200,50)
-
-  button.mousePressed(startGame)
-}
-
-//Start the game
-function startGame() {
-  gameOn = true;
-  button.hide()
-}
-
 function drawGrid(grid) {
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid[y].length; x++) {
@@ -97,7 +80,7 @@ function drawGrid(grid) {
       }else{
         fill(0, 205, 61)
       }
-      square(x*150,(y+1)*150,150)
+      rect(x*(width/10),(y+1)*(height/8),width/10, height/8)
     }
   }
 }
@@ -125,42 +108,6 @@ function charactersBar() {
   text("150",225,130)
 }
 
-
-
-//Generate a sun that falls
-function fallSun() {
-    for (let s of suns) {
-      image(sunImg,s.x,s.y,60,60)
-      s.y += 5
-
-      if(s.y > height-100){
-        s.y = height
-      }
-    }
-}
-
-function collectSun() {
-  for(let s of suns){
-
-    //Check if mouseX is in the range of the width of the image
-    if (mouseX >= s.x -30 && mouseX <= s.x+30 ) {
-
-      //Chech if mouseY is in the range of the height of the image
-      if (mouseY >= s.y -30 && mouseY <= s.y+30) {
-        sunScore += 50
-        suns.splice(suns.indexOf(s),1) //Remove the sun from the screen
-      }
-    }
-  }
-}
-
-function placeCharacter() {
-  if (selectedPlant) {
-    image(selectedPlant, mouseX, mouseY,100,100);
-  }
-}
-
-
 function draw() {
   //Timer
   sunCurrent = millis();
@@ -171,20 +118,14 @@ function draw() {
   
 
   
-   if (!gameOn) {
-    menu()
-  }
-   else{
+  //  if (!gameOn) {
+  //   menu()
+  // }
+  //  else{
       drawGrid(grid)
-      
       charactersBar()
-
-      //Render all chosen plants on the screen
-      for(let plant of plants){
-        image(plant.img, plant.x, plant.y,100,100)
-      }
-     
-      placeCharacter()
+      idle()
+      pickCharacter()
     
       
       if (sunElapsed > 1000) { //Generate new sun every 5 seconds
@@ -194,7 +135,7 @@ function draw() {
       }
       fallSun()
     
-  }
+  //}
 }
 
 function mousePressed() {
@@ -205,29 +146,17 @@ function mousePressed() {
     mouseX >= 150 &&
     mouseX <= 300 &&
     mouseY >= 0 &&
-    mouseY <= 150
+    mouseY <= 150  &&
+    sunScore >= 150
   ) {
-    selectedPlant = peaIdle[0];
+    selectedPlant = peaIdle;
+    sunScore -= 150
     return;
   }
 
-  // Place plant on grid
-  if (selectedPlant && mouseY > 150) {
 
-    // Snap to grid
-    let gridX = floor(mouseX / 150) * 150 + 75;
-    let gridY = floor((mouseY - 150) / 150) * 150 + 225;
 
-    image(selectedPlant, gridX, gridY,100,100);
-
-    plants.push({
-      x: gridX,
-      y: gridY,
-      img: selectedPlant
-    });
-
-    selectedPlant = null;
-}
+  placeCharacter()
 
 
 
