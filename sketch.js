@@ -19,6 +19,9 @@ let textX = 70
 let sunStart; let sunCurrent;
 let sunElapsed
 
+let zombieStart; let zombieCurrent;
+let zombieElapsed;
+
 let suns = []; //Keep the suns in an array
 
 //
@@ -27,11 +30,16 @@ let sunX; let sunY;
 //Grid
 let grid = []
 
+//
 let selectedPlant;
 let plants = []
 
 //---------------------------Pea Shooter-----------------------------------------
 let peaIdle = []; peaShoot = [];
+
+//Zombies
+let zombies = []
+let zombiesWalk = []
 
 
 
@@ -39,6 +47,10 @@ async function loadAssets(){
   //Fill pea Idle
   for (let i = 1; i < 14; i++) {
     peaIdle.push(loadImage("./assets/Pea Shooter/Idle/pea-idle" + i + ".png"));
+  }
+
+  for (let i = 1; i < 14; i++) {
+    zombiesWalk.push(loadImage("./assets/Zombies/Walk/Zombie idle " + i + ".png"));
   }
 
   menuImg = loadImage("./assets/Menu/menu.png")
@@ -55,6 +67,7 @@ async function setup() {
   await loadAssets()
   button  = createButton("Play !")
   sunStart = millis()
+  zombieStart = millis()
   sunX = random(width)
   sunY = 0
 
@@ -109,9 +122,13 @@ function charactersBar() {
 }
 
 function draw() {
-  //Timer
+  //Timer for suns
   sunCurrent = millis();
   sunElapsed =sunCurrent - sunStart
+
+  //Timer for Zombie spawn
+  zombieCurrent = millis()
+  zombieElapsed = zombieCurrent - zombieStart
   
   
   background(220);
@@ -133,6 +150,13 @@ function draw() {
         sunStart = millis();
         suns.push({x:round(random(width)), y:0})
       }
+
+      if(zombieElapsed > 1000){
+        generateZombies()
+      }
+
+      
+      
       fallSun()
     
   //}
