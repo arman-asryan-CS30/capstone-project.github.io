@@ -142,19 +142,21 @@ function draw() {
       drawGrid(grid)
       charactersBar()
       idle()
+      walking()
       pickCharacter()
     
       
-      if (sunElapsed > 1000) { //Generate new sun every 5 seconds
+      if (sunElapsed > 5000) { //Generate new sun every 5 seconds
     
         sunStart = millis();
         suns.push({x:round(random(width)), y:0})
       }
 
-      if(zombieElapsed > 1000){
-        generateZombies()
+      if (zombieElapsed > 10000) { //Generate new sun every 5 seconds
+    
+        zombieStart = millis();
+        generateZombie()
       }
-
       
       
       fallSun()
@@ -177,7 +179,6 @@ function mousePressed() {
     sunScore -= 150
     return;
   }
-
 
 
   placeCharacter()

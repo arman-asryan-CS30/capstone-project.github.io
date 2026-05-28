@@ -12,3 +12,20 @@ function idle(){
     }
   }
 }
+
+function walking(){
+  for(let z of zombies){
+    z.move();
+    z.display();
+    z.gameOver()
+  
+  if(frameCount % z.speed === 0){
+    z.frame++
+  }
+  
+  
+  if (z.frame >= z.image.length) {
+    z.frame = 0
+  }
+}
+}
