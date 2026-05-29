@@ -144,7 +144,7 @@ function draw() {
       idle()
       walking()
       pickCharacter()
-    
+      shoot()
       
       if (sunElapsed > 5000) { //Generate new sun every 5 seconds
     
@@ -152,7 +152,7 @@ function draw() {
         suns.push({x:round(random(width)), y:0})
       }
 
-      if (zombieElapsed > 10000) { //Generate new sun every 5 seconds
+      if (zombieElapsed > 5000) { //Generate new sun every 5 seconds
     
         zombieStart = millis();
         generateZombie()

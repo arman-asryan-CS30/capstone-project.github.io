@@ -10,10 +10,14 @@ class Zombie{
         this.y = y;
         this.speed = 5
         this.state = "walking"
-        this.frame = 0;
-        this.moveSpeed = 1;
-        this.image = zombiesWalk;
+        this.frame = 0; //Current image
+        this.moveSpeed = 0.5;
+        this.animation = {
+            walking: zombiesWalk,
+            eating:5
+        };
         this.frameTimer = 0
+        this.hp = 100;
     }
 
     move(){
@@ -21,8 +25,15 @@ class Zombie{
     }
 
     display(){
+        let currentAnimation;
+        if (this.state === "walking") {
+            currentAnimation = this.animation.walking
+        }
+        else if(this.state === "eating"){
+            currentAnimation = this.animation.eating
+        }
         image(
-            this.image[this.frame],
+            currentAnimation[this.frame],
             this.x,
             this.y,
             150,
@@ -32,13 +43,13 @@ class Zombie{
            // Slow animation down
            this.frameTimer++;
 
-        if(this.frameTimer >= 30){
+        if(this.frameTimer >= 60){//change every 30 frames
    
-               this.frame++;
-               this.frameTimer = 0;
+               this.frame++;//Next image
+               this.frameTimer = 0; //Restart the timer
    
                // Restart animation
-               if(this.frame >= this.image.length){
+               if(this.frame >= currentAnimation.length){
                    this.frame = 0;
                }
         }

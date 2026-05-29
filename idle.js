@@ -1,13 +1,17 @@
 function idle(){
     for(let plant of plants){
-    image(plant.img[plant.frame], plant.x, plant.y,100,100)
+      let currentAnimation;
+      if(plant.state === "idle"){
+        currentAnimation = plant.animation.idle
+      }
+    image(currentAnimation[plant.frame], plant.x, plant.y,100,100)
     
     if(frameCount % plant.speed === 0){
       plant.frame++
     }
     
     
-    if (plant.frame >= plant.img.length) {
+    if (plant.frame >= currentAnimation.length) {
       plant.frame = 0
     }
   }
@@ -24,7 +28,7 @@ function walking(){
   }
   
   
-  if (z.frame >= z.image.length) {
+  if (z.frame >= z.animation.walking.length) {
     z.frame = 0
   }
 }
