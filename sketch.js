@@ -15,6 +15,8 @@ let sunImg;
 let sunScore = 0;
 let textX = 70
 
+let currentPlant;
+
 //Timers
 let sunStart; let sunCurrent;
 let sunElapsed
@@ -45,6 +47,10 @@ let zombiesWalk = []
 
 async function loadAssets(){
   //Fill pea Idle
+  for (let i = 1; i < 15; i++) {
+    peaShoot.push(loadImage("./assets/Pea Shooter/Shooting/pea-shooting"+i+".png"));
+  }
+
   for (let i = 1; i < 14; i++) {
     peaIdle.push(loadImage("./assets/Pea Shooter/Idle/pea-idle" + i + ".png"));
   }
@@ -141,9 +147,10 @@ function draw() {
   //  else{
       drawGrid(grid)
       charactersBar()
-      idle()
+      displayPlants()
       walking()
       pickCharacter()
+      eat()
       shoot()
       
       if (sunElapsed > 5000) { //Generate new sun every 5 seconds
@@ -177,6 +184,7 @@ function mousePressed() {
   ) {
     selectedPlant = peaIdle;
     sunScore -= 150
+    currentPlant = "Pea"
     return;
   }
 

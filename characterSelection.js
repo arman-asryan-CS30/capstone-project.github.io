@@ -14,18 +14,7 @@ function pickCharacter() {
 
     image(selectedPlant[0], gridX, gridY,100,100);
 
-    plants.push({
-      x: gridX,
-      y: gridY,
-      state: "idle",
-      animation: {
-        idle:selectedPlant,
-        attack:5
-      },
-      hp: 100,
-      frame: 0,
-      speed: 5
-    });
+    plants.push(new Plants(gridX,gridY));
 
     selectedPlant = null;
 }

@@ -1,19 +1,6 @@
-function idle(){
+function displayPlants(){
     for(let plant of plants){
-      let currentAnimation;
-      if(plant.state === "idle"){
-        currentAnimation = plant.animation.idle
-      }
-    image(currentAnimation[plant.frame], plant.x, plant.y,100,100)
-    
-    if(frameCount % plant.speed === 0){
-      plant.frame++
-    }
-    
-    
-    if (plant.frame >= currentAnimation.length) {
-      plant.frame = 0
-    }
+      plant.display()
   }
 }
 
