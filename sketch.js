@@ -33,7 +33,7 @@ let sunX; let sunY;
 let grid = []
 
 //
-let selectedPlant;
+let selectedPlant; let plantAttack;
 let plants = []
 
 //---------------------------Pea Shooter-----------------------------------------
@@ -183,6 +183,7 @@ function mousePressed() {
     sunScore >= 150
   ) {
     selectedPlant = peaIdle;
+    plantAttack = peaShoot;
     sunScore -= 150
     currentPlant = "Pea"
     return;

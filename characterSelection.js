@@ -14,7 +14,7 @@ function pickCharacter() {
 
     image(selectedPlant[0], gridX, gridY,100,100);
 
-    plants.push(new Plants(gridX,gridY));
+    plants.push(new Plants(gridX,gridY, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
 
     selectedPlant = null;
 }
