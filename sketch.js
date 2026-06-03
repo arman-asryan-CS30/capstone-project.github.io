@@ -7,19 +7,19 @@
 //Menu
 let menuImg;
 let menuText;
-let gameOn = false
+let gameOn = false;
 let button;
 
 //Character bar
 let sunImg;
 let sunScore = 0;
-let textX = 70
+let textX = 70;
 
 let currentPlant;
 
 //Timers
 let sunStart; let sunCurrent;
-let sunElapsed
+let sunElapsed;
 
 let zombieStart; let zombieCurrent;
 let zombieElapsed;
@@ -30,18 +30,18 @@ let suns = []; //Keep the suns in an array
 let sunX; let sunY;
 
 //Grid
-let grid = []
+let grid = [];
 
 //
 let selectedPlant; let plantAttack;
-let plants = []
+let plants = [];
 
 //---------------------------Pea Shooter-----------------------------------------
 let peaIdle = []; peaShoot = [];
 
 //Zombies
-let zombies = []
-let zombiesWalk = []
+let zombies = [];
+let zombiesWalk = [];
 
 
 
@@ -59,47 +59,48 @@ async function loadAssets(){
     zombiesWalk.push(loadImage("./assets/Zombies/Walk/Zombie idle " + i + ".png"));
   }
 
-  menuImg = loadImage("./assets/Menu/menu.png")
-  menuText = loadImage("./assets/Menu/menu-text.webp")
+  menuImg = loadImage("./assets/Menu/menu.png");
+  menuText = loadImage("./assets/Menu/menu-text.webp");
 
-  sunImg = loadImage("./assets/Character Bar/Sun_PvZ2.png")
+  sunImg = loadImage("./assets/Character Bar/Sun_PvZ2.png");
 }
 
 
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
-  imageMode(CENTER)
-  await loadAssets()
-  button  = createButton("Play !")
-  sunStart = millis()
-  zombieStart = millis()
-  sunX = random(width)
-  sunY = 0
+  imageMode(CENTER);
+  await loadAssets();
+  button  = createButton("Play !");
+  sunStart = millis();
+  zombieStart = millis();
+  sunX = random(width);
+  sunY = 0;
 
 
 
   grid = [
-      [0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0],
-      [0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0],
-      [0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0],
-      [0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0],
-  ]
+    [0,1,0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1],
+    [1,0,1,0,1,0,1,0,1,0],
+  ];
 }
 
 function drawGrid(grid) {
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid[y].length; x++) {
       if (grid[y][x] === 1) {
-        fill(0, 169, 44)
-      }else{
-        fill(0, 205, 61)
+        fill(0, 169, 44);
       }
-      rect(x*(width/10),(y+1)*(height/8),width/10, height/8)
+      else{
+        fill(0, 205, 61);
+      }
+      rect(x*(width/10),(y+1)*(height/8),width/10, height/8);
     }
   }
 }
@@ -107,35 +108,34 @@ function drawGrid(grid) {
 function charactersBar() {
 
   //The bar
-  strokeWeight(10)
-  stroke(153, 95, 47)
-  fill(98, 43, 20)
+  strokeWeight(10);
+  stroke(153, 95, 47);
+  fill(98, 43, 20);
   for (let i = 0; i < 900; i+= 150) {
-    square(i,0,150)
+    square(i,0,150);
   }
 
   //Sun box
-  fill(255)
-  noStroke()
-  image(sunImg,75,60,100,100)
-  textSize(20)
-  textAlign(CENTER, CENTER)
-  text(sunScore,75,130)
+  fill(255);
+  noStroke();
+  image(sunImg,75,60,100,100);
+  textSize(20);
+  textAlign(CENTER, CENTER);
+  text(sunScore,75,130);
 
   //Pea Shooter
-  image(peaIdle[0],225,60,100,100)
-  text("150",225,130)
+  image(peaIdle[0],225,60,100,100);
+  text("150",225,130);
 }
 
 function draw() {
   //Timer for suns
   sunCurrent = millis();
-  sunElapsed =sunCurrent - sunStart
+  sunElapsed =sunCurrent - sunStart;
 
   //Timer for Zombie spawn
-  zombieCurrent = millis()
-  zombieElapsed = zombieCurrent - zombieStart
-  
+  zombieCurrent = millis();
+  zombieElapsed = zombieCurrent - zombieStart;
   
   background(220);
   
@@ -145,34 +145,34 @@ function draw() {
   //   menu()
   // }
   //  else{
-      drawGrid(grid)
-      charactersBar()
-      displayPlants()
-      walking()
-      pickCharacter()
-      eat()
-      shoot()
+  drawGrid(grid);
+  charactersBar();
+  displayPlants();
+  walking();
+  pickCharacter();
+  eat();
+  shoot();
       
-      if (sunElapsed > 5000) { //Generate new sun every 5 seconds
+  if (sunElapsed > 5000) { //Generate new sun every 5 seconds
     
-        sunStart = millis();
-        suns.push({x:round(random(width)), y:0})
-      }
+    sunStart = millis();
+    suns.push({x:round(random(width)), y:0});
+  }
 
-      if (zombieElapsed > 5000) { //Generate new sun every 5 seconds
+  if (zombieElapsed > 5000) { //Generate new sun every 5 seconds
     
-        zombieStart = millis();
-        generateZombie()
-      }
+    zombieStart = millis();
+    generateZombie();
+  }
       
       
-      fallSun()
+  fallSun();
     
   //}
 }
 
 function mousePressed() {
-  collectSun()
+  collectSun();
 
   // Clicking Pea Shooter in character bar
   if (
@@ -184,13 +184,13 @@ function mousePressed() {
   ) {
     selectedPlant = peaIdle;
     plantAttack = peaShoot;
-    sunScore -= 150
-    currentPlant = "Pea"
+    sunScore -= 150;
+    currentPlant = "Pea";
     return;
   }
 
 
-  placeCharacter()
+  placeCharacter();
 
 
 

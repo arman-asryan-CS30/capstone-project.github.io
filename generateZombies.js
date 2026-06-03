@@ -1,64 +1,68 @@
 function generateZombie() {
-    let gridY = floor((random(height) - 150) / 150) * 150 + 225;
-    let zombie = new Zombie(gridY)
-    zombies.push(zombie)
+  let gridY = floor((random(height) - 150) / 150) * 150 + 225;
+  let zombie = new Zombie(gridY);
+  zombies.push(zombie);
 }
 
 class Zombie{
-    constructor(y){
-        this.x = width-100;
-        this.y = y;
-        this.speed = 5
-        this.state = "walking"
-        this.frame = 0; //Current image
-        this.moveSpeed = 0.5;
-        this.animation = {
-            walking: zombiesWalk,
-            eating:5
-        };
-        this.frameTimer = 0
-        this.hp = 100;
+  constructor(y){
+    this.x = width-100;
+    this.y = y;
+    this.speed = 5;
+    this.state = "walking";
+    this.frame = 0; //Current image
+    this.moveSpeed = 0.5;
+    this.animation = {
+      walking: zombiesWalk,
+      damaged1:5,
+      eating:5
+    };
+    this.frameTimer = 0;
+    this.hp = 100;
+  }
+
+  move(){
+    this.x -= this.moveSpeed;
+  }
+
+
+
+  display(){
+    let currentAnimation;
+    if (this.state === "walking") {
+      currentAnimation = this.animation.walking;
     }
-
-    move(){
-        this.x -= this.moveSpeed;
+    else if(this.state === "eating"){
+      currentAnimation = this.animation.eating;
     }
+    image(
+      currentAnimation[this.frame],
+      this.x,
+      this.y,
+      150,
+      150
+    );
 
-    display(){
-        let currentAnimation;
-        if (this.state === "walking") {
-            currentAnimation = this.animation.walking
-        }
-        else if(this.state === "eating"){
-            currentAnimation = this.animation.eating
-        }
-        image(
-            currentAnimation[this.frame],
-            this.x,
-            this.y,
-            150,
-            150
-        );
 
-           // Slow animation down
-           this.frameTimer++;
+    // Slow animation down
+    this.frameTimer++;
 
-        if(this.frameTimer >= 60){//change every 30 frames
+    if(this.frameTimer >= 60){//change every 30 frames
    
-               this.frame++;//Next image
-               this.frameTimer = 0; //Restart the timer
+      this.frame++;//Next image
+      this.frameTimer = 0; //Restart the timer
    
-               // Restart animation
-               if(this.frame >= currentAnimation.length){
-                   this.frame = 0;
-               }
-        }
+      // Restart animation
+      if(this.frame >= currentAnimation.length){
+        this.frame = 0;
+      }
     }
+  }
 
-    gameOver(){
-        if (this.x <0) {
-            noLoop()
-            text("Game Over", width/2, height/2)
-        }
+  gameOver(){
+    if (this.x <0) {
+      noLoop();
+      text("Game Over", width/2, height/2);
     }
+  }
 }

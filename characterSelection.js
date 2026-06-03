@@ -1,11 +1,11 @@
 function pickCharacter() {
-    if (selectedPlant) {
-      image(selectedPlant[0], mouseX, mouseY,100,100);
-    }
+  if (selectedPlant) {
+    image(selectedPlant[0], mouseX, mouseY,100,100);
   }
+}
 
-  function placeCharacter() {
-    // Place plant on grid
+function placeCharacter() {
+  // Place plant on grid
   if (selectedPlant && mouseY > 150) {
 
     // Snap to grid
@@ -17,5 +17,5 @@ function pickCharacter() {
     plants.push(new Plants(gridX,gridY, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
 
     selectedPlant = null;
-}
   }
+}
