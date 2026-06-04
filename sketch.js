@@ -42,6 +42,7 @@ let peaIdle = []; peaShoot = [];
 //Zombies
 let zombies = [];
 let zombiesWalk = [];
+let zombieEats = [];
 
 
 
@@ -57,6 +58,10 @@ async function loadAssets(){
 
   for (let i = 1; i < 14; i++) {
     zombiesWalk.push(loadImage("./assets/Zombies/Walk/Zombie idle " + i + ".png"));
+  }
+
+  for (let i = 1; i < 8; i++) {
+    zombieEats.push(loadImage("./assets/Zombies/Eat/No Damage/zombie-eating" + i + ".png"));
   }
 
   menuImg = loadImage("./assets/Menu/menu.png");
@@ -153,13 +158,13 @@ function draw() {
   eat();
   shoot();
       
-  if (sunElapsed > 5000) { //Generate new sun every 5 seconds
+  if (sunElapsed > 3000) { //Generate new sun every 5 seconds
     
     sunStart = millis();
     suns.push({x:round(random(width)), y:0});
   }
 
-  if (zombieElapsed > 5000) { //Generate new sun every 5 seconds
+  if (zombieElapsed > 6000) { //Generate new sun every 5 seconds
     
     zombieStart = millis();
     generateZombie();

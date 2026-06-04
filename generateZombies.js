@@ -15,7 +15,7 @@ class Zombie{
     this.animation = {
       walking: zombiesWalk,
       damaged1:5,
-      eating:5
+      eatingNoDamage:zombieEats
     };
     this.frameTimer = 0;
     this.hp = 100;
@@ -32,9 +32,10 @@ class Zombie{
     if (this.state === "walking") {
       currentAnimation = this.animation.walking;
     }
-    else if(this.state === "eating"){
-      currentAnimation = this.animation.eating;
+    else if(this.state === "eating, no damage"){
+      currentAnimation = this.animation.eatingNoDamage;
     }
+    print(this.state, this.frame)
     image(
       currentAnimation[this.frame],
       this.x,
@@ -48,13 +49,14 @@ class Zombie{
     this.frameTimer++;
 
     if(this.frameTimer >= 60){//change every 30 frames
-   
+      print("increment frame")
       this.frame++;//Next image
       this.frameTimer = 0; //Restart the timer
    
       // Restart animation
       if(this.frame >= currentAnimation.length){
         this.frame = 0;
+        print("reset frame")
       }
     }
   }

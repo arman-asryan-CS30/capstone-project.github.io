@@ -23,11 +23,12 @@ class Plants{
   }
 
   shoot(){
+    //Shooting animation of the bullet
     for(let b of this.bullets){
       image(b.img, b.x, b.y, 30,30);
       b.x+=5;
 
-      for(let z of zombies){
+      for(let z of zombies){ //Damage of the bullets
         if (b.x > z.x && abs(b.y - z.y) < 20 ) {
           this.bullets.splice(this.bullets.indexOf(b),1);
           z.hp -= 20;
@@ -52,7 +53,9 @@ class Plants{
           
           
     if (this.frame >= this.currentAnimation.length) {
-      this.frame = 0;
+      this.frame = 0; //Reset the animation
+      
+      //Generate a new bullet
       if (this.type === "Pea" && this.state === "attack") {
         this.bullets.push({img:loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png"), x:this.x, y:this.y});
       }
