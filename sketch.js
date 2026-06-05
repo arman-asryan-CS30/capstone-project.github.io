@@ -44,6 +44,8 @@ let zombies = [];
 let zombiesWalk = [];
 let zombieEats = [];
 
+let zombiesWalkOneArm = [];
+
 
 
 async function loadAssets(){
@@ -58,6 +60,10 @@ async function loadAssets(){
 
   for (let i = 1; i < 14; i++) {
     zombiesWalk.push(loadImage("./assets/Zombies/Walk/Zombie idle " + i + ".png"));
+  }
+
+  for (let i = 1; i < 7; i++) {
+    zombiesWalkOneArm.push(loadImage("./assets/Zombies/Walk/One arm/Zombie dying "+ i+".png"));
   }
 
   for (let i = 1; i < 8; i++) {
@@ -152,8 +158,7 @@ function draw() {
   //  else{
   drawGrid(grid);
   charactersBar();
-  displayPlants();
-  walking();
+  display()
   pickCharacter();
   eat();
   shoot();
@@ -196,7 +201,7 @@ function mousePressed() {
 
 
   placeCharacter();
-
+ 
 
 
 }
