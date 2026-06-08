@@ -39,6 +39,10 @@ let plants = [];
 //---------------------------Pea Shooter-----------------------------------------
 let peaIdle = []; peaShoot = [];
 
+//---------------------------Chomper-------------------------------
+let chomperIdle = []; chomperAttack = [];
+let chomperChew = [];
+
 //Zombies
 let zombies = [];
 let zombiesWalk = [];
@@ -69,7 +73,19 @@ async function loadAssets(){
   for (let i = 1; i < 8; i++) {
     zombieEats.push(loadImage("./assets/Zombies/Eat/No Damage/zombie-eating" + i + ".png"));
   }
+  
+  for (let i = 1; i < 5; i++) {
+    chomperIdle.push(loadImage("./assets/Chomper/Idle/Chomper-idle"+ i+ ".png"));
+  }
 
+  for (let i = 1; i < 7; i++) {
+    chomperAttack.push(loadImage("./assets/Chomper/Attack/chomper-attack"+i+".png"));
+  }
+
+  for (let i = 1; i < 10; i++) {
+    chomperChew.push(loadImage("./assets/Chomper/Swallow/chomper-swallow"+i+".png"));
+  }
+  
   menuImg = loadImage("./assets/Menu/menu.png");
   menuText = loadImage("./assets/Menu/menu-text.webp");
 
@@ -137,6 +153,10 @@ function charactersBar() {
   //Pea Shooter
   image(peaIdle[0],225,60,100,100);
   text("150",225,130);
+
+  //Chomper
+  image(chomperIdle[0],385,60,100,100);
+  text("250",375,130);
 }
 
 function draw() {
@@ -196,6 +216,20 @@ function mousePressed() {
     plantAttack = peaShoot;
     sunScore -= 150;
     currentPlant = "Pea";
+    return;
+  }
+
+  if (
+    mouseX >= 300 &&
+    mouseX <= 500 &&
+    mouseY >= 0 &&
+    mouseY <= 150  &&
+    sunScore >= 250
+  ) {
+    selectedPlant = chomperIdle;
+    plantAttack = chomperAttack;
+    sunScore -= 150;
+    currentPlant = "Chomper";
     return;
   }
 

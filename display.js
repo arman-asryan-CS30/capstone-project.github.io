@@ -44,10 +44,6 @@ function displayZombies(){
       if (z.hp <= 0) { //Remove the zombie from the array and stop displaying him
         zombies.splice(zombies.indexOf(z),1);
       }
-      
-      else if(z.hp = 60){
-        z.state = "walking with one arm"
-      }
     
       if(frameCount % z.speed === 0){
         z.frame++;

@@ -5,7 +5,8 @@ class Plants{
     this.state= "idle",
     this.animation= {
       idle:selectedPlant,
-      attack:attack
+      attack:attack,
+      chew:chomperChew
     },
     this.hp= 100,
     this.frame= 0,
@@ -47,6 +48,7 @@ class Plants{
 
     image(this.currentAnimation[this.frame], this.x, this.y,100,100);
 
+    //MOve to the next frame
     if(frameCount % this.speed === 0){
       this.frame++;
     }
@@ -55,7 +57,20 @@ class Plants{
     if (this.frame >= this.currentAnimation.length) {
       this.frame = 0; //Reset the animation
       
-      //Generate a new bullet
+      //Seperate attack for Chomper since it doesnt shoot a bullet
+      if (this.type === "Chomper") {
+        for(let z of zombies){ //Damage of the bullets
+          if (abs(this.y - z.y) < 20 && abs(z.x - this.x) < 50 ) {
+           z.hp -= 100;
+
+           
+            this.currentAnimation = this.animation.chew
+           
+          }
+        }
+      }
+      
+      //Generate a new bullet for Pea Shooter
       if (this.type === "Pea" && this.state === "attack") {
         this.bullets.push({img:loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png"), x:this.x, y:this.y});
       }
