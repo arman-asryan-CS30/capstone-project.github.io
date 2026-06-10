@@ -43,8 +43,16 @@ let peaIdle = []; peaShoot = [];
 let chomperIdle = []; chomperAttack = [];
 let chomperChew = [];
 
+//--------------------------Kernelpult-------------------------
+let kernelIdle = []; let kernelAttack = []
+
+//---------------------------Wallnut=--------------------------
+let wallnutIdle = []; let wallnutCracked1 = [];
+let wallnutCracked2 = [];
+
 //Zombies
 let zombies = [];
+let currentState = "walking"
 let zombiesWalk = [];
 let zombieEats = [];
 
@@ -62,7 +70,7 @@ async function loadAssets(){
     peaIdle.push(loadImage("./assets/Pea Shooter/Idle/pea-idle" + i + ".png"));
   }
 
-  for (let i = 1; i < 14; i++) {
+  for (let i = 1; i < 13; i++) {
     zombiesWalk.push(loadImage("./assets/Zombies/Walk/Zombie idle " + i + ".png"));
   }
 
@@ -85,6 +93,19 @@ async function loadAssets(){
   for (let i = 1; i < 10; i++) {
     chomperChew.push(loadImage("./assets/Chomper/Swallow/chomper-swallow"+i+".png"));
   }
+
+  for (let i = 1; i < 8; i++) {
+    kernelIdle.push(loadImage("./assets/Kernelpult/Idle/kernelpult-idle"+i+".png"));
+  }
+
+  for (let i = 1; i < 7; i++) {
+    kernelAttack.push(loadImage("./assets/Kernelpult/Attack/kernepult-attack"+i+".png"))
+  }
+
+  for (let i = 1; i < 2; i++){
+    wallnutIdle.push(loadImage("./assets/Wallnut/No damage/The  Big Nut "+i+".png"))
+  }
+  
   
   menuImg = loadImage("./assets/Menu/menu.png");
   menuText = loadImage("./assets/Menu/menu-text.webp");
@@ -156,7 +177,13 @@ function charactersBar() {
 
   //Chomper
   image(chomperIdle[0],385,60,100,100);
-  text("250",375,130);
+  text("300",375,130);
+
+  image(kernelIdle[0],525,60,100,100);
+  text("250",525,130);
+
+  image(wallnutIdle[0],675,60,100,100);
+  text("100",675,130);
 }
 
 function draw() {
@@ -230,6 +257,20 @@ function mousePressed() {
     plantAttack = chomperAttack;
     sunScore -= 150;
     currentPlant = "Chomper";
+    return;
+  }
+
+  if (
+    mouseX >= 500 &&
+    mouseX <= 700 &&
+    mouseY >= 0 &&
+    mouseY <= 150  &&
+    sunScore >= 250
+  ) {
+    selectedPlant = kernelIdle;
+    plantAttack = kernelAttack;
+    sunScore -= 250;
+    currentPlant = "Kernel";
     return;
   }
 

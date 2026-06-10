@@ -6,7 +6,7 @@ function displayPlants(){
         
         for(let z of zombies){ //Zombie goes back to walking after eating the plant
           if (z.x - plant.x < 30 && abs(z.y - plant.y) <10) {
-            z.state = "walking";
+            z.state = currentState;
             z.moveSpeed = 0.5;
           }
         }
@@ -54,7 +54,7 @@ function displayZombies(){
         z.frame = 0;
         for(let plant of plants){
           if (z.x - plant.x < 30 && abs(z.y - plant.y) <10) {
-            plant.hp -= 50;
+            plant.hp -= 20;
           }
         }
       }

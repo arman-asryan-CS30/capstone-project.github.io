@@ -35,9 +35,6 @@ class Zombie{
     else if(this.state === "eating, no damage"){
       currentAnimation = this.animation.eatingNoDamage;
     }
-    else if(this.state === "walking with one arm"){
-      currentAnimation =  this.animation.walkingOneArm;
-    }
     
     image(
       currentAnimation[this.frame],
@@ -47,6 +44,7 @@ class Zombie{
       150
     );
   }
+
 
   gameOver(){
     if (this.x <0) {

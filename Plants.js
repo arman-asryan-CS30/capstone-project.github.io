@@ -32,7 +32,12 @@ class Plants{
       for(let z of zombies){ //Damage of the bullets
         if (b.x > z.x && abs(b.y - z.y) < 20 ) {
           this.bullets.splice(this.bullets.indexOf(b),1);
-          z.hp -= 20;
+          if (this.type ==="Pea") {
+            z.hp -= 10;
+          }else{
+            z.hp -= 20
+          }
+          
         }
       }
     }
@@ -48,6 +53,8 @@ class Plants{
 
     image(this.currentAnimation[this.frame], this.x, this.y,100,100);
 
+   
+    
     //MOve to the next frame
     if(frameCount % this.speed === 0){
       this.frame++;
@@ -61,7 +68,7 @@ class Plants{
       if (this.type === "Chomper") {
         for(let z of zombies){ //Damage of the bullets
           if (abs(this.y - z.y) < 20 && abs(z.x - this.x) < 50 ) {
-           z.hp -= 100;
+           z.hp -= 100/3;
 
            
             this.currentAnimation = this.animation.chew
@@ -73,6 +80,10 @@ class Plants{
       //Generate a new bullet for Pea Shooter
       if (this.type === "Pea" && this.state === "attack") {
         this.bullets.push({img:loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png"), x:this.x, y:this.y});
+      }
+
+      if (this.type === "Kernel" && this.state === "attack") {
+        this.bullets.push({img:loadImage("./assets/Kernelpult/Projectile/kernel-projectile.png"), x:this.x, y:this.y});
       }
     }
   }

@@ -29,6 +29,11 @@ function shoot(){
         zombieInRange = true;
         break;
       }
+
+      if (plant.type === "Kernel" && z.x - plant.x < 900 && abs(z.y - plant.y) < 10) {
+        zombieInRange = true;
+        break;
+      }
     }
   
     if (zombieInRange) {
