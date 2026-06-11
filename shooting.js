@@ -1,7 +1,7 @@
 function eat(){
   for(plant of plants){
     for(let z of zombies){
-      if (z.x - plant.x < 30 && abs(z.y - plant.y) <10) {
+      if (z.x - plant.x < 60 && abs(z.y - plant.y) <10) {
         
         if(z.state==="walking"){
           z.moveSpeed = 0;

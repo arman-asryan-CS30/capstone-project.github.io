@@ -1,5 +1,6 @@
 function generateZombie() {
-  let gridY = floor((random(height) - 150) / 150) * 150 + 225;
+  let row = floor(random(8)); // 0 to 7
+  let gridY = row * 150 + 225;
   let zombie = new Zombie(gridY);
   zombies.push(zombie);
 }

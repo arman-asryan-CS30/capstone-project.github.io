@@ -102,10 +102,15 @@ async function loadAssets(){
     kernelAttack.push(loadImage("./assets/Kernelpult/Attack/kernepult-attack"+i+".png"))
   }
 
-  for (let i = 1; i < 2; i++){
-    wallnutIdle.push(loadImage("./assets/Wallnut/No damage/The  Big Nut "+i+".png"))
-  }
   
+  wallnutIdle.push(loadImage("./assets/Wallnut/No damage/The  Big Nut 1.png"))
+  wallnutIdle.push(loadImage("./assets/Wallnut/No damage/The Big Nut 2.png"))
+  wallnutIdle.push(loadImage("./assets/Wallnut/No damage//The Big Nut 3.png"))
+  
+
+  wallnutCracked2.push(loadImage("./assets/Wallnut/Cracked 2/CN 4.png"))
+  wallnutCracked2.push(loadImage("./assets/Wallnut/Cracked 2/CN 5.png"))
+  wallnutCracked2.push(loadImage("./assets/Wallnut/Cracked 2/CN 6.png"))
   
   menuImg = loadImage("./assets/Menu/menu.png");
   menuText = loadImage("./assets/Menu/menu-text.webp");
@@ -134,8 +139,7 @@ async function setup() {
     [1,0,1,0,1,0,1,0,1,0],
     [0,1,0,1,0,1,0,1,0,1],
     [1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,1]
   ];
 }
 
@@ -271,6 +275,19 @@ function mousePressed() {
     plantAttack = kernelAttack;
     sunScore -= 250;
     currentPlant = "Kernel";
+    return;
+  }
+
+  if (
+    mouseX >= 600 &&
+    mouseX <= 800 &&
+    mouseY >= 0 &&
+    mouseY <= 150  &&
+    sunScore >= 100
+  ) {
+    selectedPlant = wallnutIdle;
+    sunScore -= 100;
+    currentPlant = "Wallnut";
     return;
   }
 

@@ -30,11 +30,11 @@ class Plants{
       b.x+=5;
 
       for(let z of zombies){ //Damage of the bullets
-        if (b.x > z.x && abs(b.y - z.y) < 20 ) {
+        if (b.x > z.x && abs(b.y - z.y) < 20 ) {//Check if the bullet is touching the zombie
           this.bullets.splice(this.bullets.indexOf(b),1);
-          if (this.type ==="Pea") {
+          if (this.type ==="Pea") {//Peashooter
             z.hp -= 10;
-          }else{
+          }else{ //Kernelpult
             z.hp -= 20
           }
           
@@ -44,12 +44,20 @@ class Plants{
   }
 
   display(){
+    if (this.type === "Wallnut" && this.hp <= 40) {
+      this.state = "Cracked2";
+      
+    }
+    if (this.state === "Cracked2") {
+      this.currentAnimation = wallnutCracked2;
+    }
     if (this.state === "idle") {
       this.currentAnimation = this.animation.idle;
     }
     else if (this.state === "attack") {
       this.currentAnimation = this.animation.attack;
     }
+
 
     image(this.currentAnimation[this.frame], this.x, this.y,100,100);
 
@@ -67,7 +75,7 @@ class Plants{
       //Seperate attack for Chomper since it doesnt shoot a bullet
       if (this.type === "Chomper") {
         for(let z of zombies){ //Damage of the bullets
-          if (abs(this.y - z.y) < 20 && abs(z.x - this.x) < 50 ) {
+          if (abs(this.y - z.y) < 60 && abs(z.x - this.x) < 50 ) {
            z.hp -= 100/3;
 
            

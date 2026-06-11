@@ -1,11 +1,11 @@
 function displayPlants(){
   for(let plant of plants){
-      plant.display();
+      plant.display()
 
       if (plant.hp <= 0) {
         
         for(let z of zombies){ //Zombie goes back to walking after eating the plant
-          if (z.x - plant.x < 30 && abs(z.y - plant.y) <10) {
+          if (z.x - plant.x < 60 && abs(z.y - plant.y) <10) {
             z.state = currentState;
             z.moveSpeed = 0.5;
           }
@@ -53,7 +53,7 @@ function displayZombies(){
       if (z.frame >= z.animation.eatingNoDamage.length) {
         z.frame = 0;
         for(let plant of plants){
-          if (z.x - plant.x < 30 && abs(z.y - plant.y) <10) {
+          if (z.x - plant.x < 60 && abs(z.y - plant.y) <10) {
             plant.hp -= 20;
           }
         }
