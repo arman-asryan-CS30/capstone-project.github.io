@@ -5,7 +5,7 @@ function generateZombie() {
       (row + 1) * (height / 8) +
       (height / 16);
 
-    zombies.push(new Zombie(gridY));
+    zombies.push(new Zombie(gridY-20));
 }
 
 class Zombie{

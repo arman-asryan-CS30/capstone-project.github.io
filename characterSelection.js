@@ -15,10 +15,10 @@ function placeCharacter() {
     let row = floor((mouseY - (height / 8)) / (height / 8));
     let gridY = (row + 1) * (height / 8) + (height / 16);
 
-    image(selectedPlant[0], gridX, gridY,100,100);
+    
 
     
-    plants.push(new Plants(gridX,gridY, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
+    plants.push(new Plants(gridX,gridY-20, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
 
     selectedPlant = undefined;
   }

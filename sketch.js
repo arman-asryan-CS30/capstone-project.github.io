@@ -2,6 +2,18 @@
 //By Arman and Abdullah
 // May 12 / 2026
 
+
+
+//
+//
+//
+//
+//Feed back
+// really cool! - Adela
+//A cool PvZ clone with potnetial - Iskander
+// Raly good, well made and is fun, would love to see instructions added 
+// and the stars get stuck at the boutome so have end time for them Muhammad ismail, 
+
 //Global Variables
 
 //Menu
@@ -306,4 +318,5 @@ function mousePressed() {
  
 
 
+}
 }

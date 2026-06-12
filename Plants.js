@@ -35,7 +35,7 @@ class Plants{
           if (this.type ==="Pea") {//Peashooter
             z.hp -= 10;
           }else{ //Kernelpult
-            z.hp -= 20
+            z.hp -= 5
           }
           
         }
