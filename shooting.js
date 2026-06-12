@@ -25,7 +25,7 @@ function shoot(){
         break;
       }
 
-      if (plant.type === "Chomper" && abs(z.x - plant.x) < 50 && abs(z.y - plant.y) < 10) {
+      if (plant.type === "Chomper" && abs(z.x - plant.x) < 70 && abs(z.y - plant.y) < 10) {
         zombieInRange = true;
         break;
       }

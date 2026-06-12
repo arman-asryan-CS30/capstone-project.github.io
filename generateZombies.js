@@ -1,8 +1,11 @@
 function generateZombie() {
-  let row = floor(random(8)); // 0 to 7
-  let gridY = row * 150 + 225;
-  let zombie = new Zombie(gridY);
-  zombies.push(zombie);
+    let row = floor(random(grid.length));
+
+    let gridY =
+      (row + 1) * (height / 8) +
+      (height / 16);
+
+    zombies.push(new Zombie(gridY));
 }
 
 class Zombie{
@@ -41,8 +44,8 @@ class Zombie{
       currentAnimation[this.frame],
       this.x,
       this.y,
-      150,
-      150
+      min(width / 10, (height - 150) / 7) * 1.1, //Depending on the size of the cell of the grid, adjust the size of the zombie
+      min(width / 10, (height - 150) / 7) * 1.1
     );
   }
 

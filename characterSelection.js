@@ -9,14 +9,17 @@ function placeCharacter() {
   if (selectedPlant && mouseY > 150) {
 
     // Snap to grid
-    let gridX = floor(mouseX / (width/10)) * (width/10) + 75;
-    let gridY = floor((mouseY - 150) / 150) * 150 + 225;
+    let col = floor(mouseX / (width / 10));//Divide the mouseX by the size of the cell to find the column
+    let gridX = col * (width / 10) + (width / 20); //Place it in the middle of the cell
+    
+    let row = floor((mouseY - (height / 8)) / (height / 8));
+    let gridY = (row + 1) * (height / 8) + (height / 16);
 
     image(selectedPlant[0], gridX, gridY,100,100);
 
     
     plants.push(new Plants(gridX,gridY, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
 
-    selectedPlant = null;
+    selectedPlant = undefined;
   }
 }

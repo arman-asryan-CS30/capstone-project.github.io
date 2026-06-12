@@ -59,7 +59,7 @@ class Plants{
     }
 
 
-    image(this.currentAnimation[this.frame], this.x, this.y,100,100);
+    image(this.currentAnimation[this.frame], this.x, this.y,min(width / 10, (height - 150) / 7) * 0.9,min(width / 10, (height - 150) / 7) * 0.9);
 
    
     
@@ -75,9 +75,10 @@ class Plants{
       //Seperate attack for Chomper since it doesnt shoot a bullet
       if (this.type === "Chomper") {
         for(let z of zombies){ //Damage of the bullets
-          if (abs(this.y - z.y) < 60 && abs(z.x - this.x) < 50 ) {
-           z.hp -= 100/3;
-
+          if (abs(this.y - z.y) < 70 && abs(z.x - this.x) < 60 ) {
+           z.hp -= 50;
+           console.log(1);
+           
            
             this.currentAnimation = this.animation.chew
            

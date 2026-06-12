@@ -144,15 +144,25 @@ async function setup() {
 }
 
 function drawGrid(grid) {
+
+  let cellW = width / 10;
+  let cellH = (height - 150) / 7; //Without the character bar 
+
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid[y].length; x++) {
+
       if (grid[y][x] === 1) {
         fill(0, 169, 44);
-      }
-      else{
+      } else {
         fill(0, 205, 61);
       }
-      rect(x*(width/10),(y+1)*(height/8),width/10, height/8);
+
+      rect(
+        x * cellW,
+        150 + y * cellH,
+        cellW,
+        cellH
+      );
     }
   }
 }
