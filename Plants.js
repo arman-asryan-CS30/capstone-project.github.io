@@ -1,10 +1,10 @@
 class Plants{
-  constructor(x,y,attack,bullet){
+  constructor(x,y,idle,attack,bullet){
     this.x= x,
     this.y= y,
     this.state= "idle",
     this.animation= {
-      idle:selectedPlant,
+      idle:idle,
       attack:attack,
       chew:chomperChew
     },
@@ -57,13 +57,6 @@ class Plants{
     else if (this.state === "attack") {
       this.currentAnimation = this.animation.attack;
     }
-
-
-    image(this.currentAnimation[this.frame], this.x, this.y,min(width / 10, (height - 150) / 7) * 0.9,min(width / 10, (height - 150) / 7) * 0.9);
-
-   
-    
-    //MOve to the next frame
     if(frameCount % this.speed === 0){
       this.frame++;
     }
@@ -76,7 +69,7 @@ class Plants{
       if (this.type === "Chomper") {
         for(let z of zombies){ //Damage of the bullets
           if (abs(this.y - z.y) < 70 && abs(z.x - this.x) < 60 ) {
-           z.hp -= 50;
+           z.hp -= (100/3);
            console.log(1);
            
            
@@ -94,6 +87,19 @@ class Plants{
       if (this.type === "Kernel" && this.state === "attack") {
         this.bullets.push({img:loadImage("./assets/Kernelpult/Projectile/kernel-projectile.png"), x:this.x, y:this.y});
       }
+    }
+
+    image(this.currentAnimation[this.frame], this.x, this.y,min(width / 10, (height - 150) / 7) * 0.9,min(width / 10, (height - 150) / 7) * 0.9);
+
+   
+    
+    //MOve to the next frame
+    
+  }
+
+  sunflowerGlow(){
+    if (this.type === "Sunflower") {
+      
     }
   }
 }

@@ -62,8 +62,13 @@ let kernelIdle = []; let kernelAttack = []
 let wallnutIdle = []; let wallnutCracked1 = [];
 let wallnutCracked2 = [];
 
+//-------------------------Sunflower---------------------------
+let sunflowerIdle = []; let sunflowerGlow = [];
+
+
 //Zombies
 let zombies = [];
+let zombieCount=0;
 let currentState = "walking"
 let zombiesWalk = [];
 let zombieEats = [];
@@ -128,6 +133,10 @@ async function loadAssets(){
   menuText = loadImage("./assets/Menu/menu-text.webp");
 
   sunImg = loadImage("./assets/Character Bar/Sun_PvZ2.png");
+
+  for (let i = 1; i < 7; i++) {
+    sunflowerIdle.push(loadImage("./assets/Sunflower/Idle/sunflower-idle"+i+".png"))
+  }
 }
 
 
@@ -205,11 +214,17 @@ function charactersBar() {
   image(chomperIdle[0],385,60,100,100);
   text("300",375,130);
 
+  //Kernel
   image(kernelIdle[0],525,60,100,100);
   text("250",525,130);
 
+  //Wallnut
   image(wallnutIdle[0],675,60,100,100);
   text("100",675,130);
+
+  //Sunflower
+  image(sunflowerIdle[0],815,60,100,100);
+  text("50",825,130);
 }
 
 function draw() {
@@ -313,10 +328,23 @@ function mousePressed() {
     return;
   }
 
+  if (
+    mouseX >= 800 &&
+    mouseX <= 900 &&
+    mouseY >= 0 &&
+    mouseY <= 150  &&
+    sunScore >= 100
+  ) {
+    selectedPlant = sunflowerIdle;
+    sunScore -= 50;
+    currentPlant = "Sunflower";
+    return;
+  }
+
 
   placeCharacter();
  
 
 
 }
-}
+

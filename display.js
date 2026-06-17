@@ -25,6 +25,7 @@ function displayZombies(){
     if (z.state === "walking"){
       if (z.hp <= 0) { //Remove the zombie from the array and stop displaying him
         zombies.splice(zombies.indexOf(z),1);
+        zombieCount ++
       }
     
       //Move to the next image in the animation
@@ -43,6 +44,7 @@ function displayZombies(){
       
       if (z.hp <= 0) { //Remove the zombie from the array and stop displaying him
         zombies.splice(zombies.indexOf(z),1);
+        
       }
     
       if(frameCount % z.speed === 0){

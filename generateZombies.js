@@ -32,6 +32,7 @@ class Zombie{
 
 
   display(){
+    this.levelUp()
     let currentAnimation;
     if (this.state === "walking") {
       currentAnimation = this.animation.walking;
@@ -47,6 +48,14 @@ class Zombie{
       min(width / 10, (height - 150) / 7) * 1.1, //Depending on the size of the cell of the grid, adjust the size of the zombie
       min(width / 10, (height - 150) / 7) * 1.1
     );
+  }
+
+  levelUp(){
+    if (zombieCount > 10) {
+
+      this.hp = 150
+      this.moveSpeed = 1
+    }
   }
 
 
