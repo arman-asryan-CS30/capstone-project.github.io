@@ -17,8 +17,18 @@ function placeCharacter() {
 
     
 
-    
-    plants.push(new Plants(gridX,gridY-20,selectedPlant, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
+    let occupied = false;
+
+    for (let plant of plants) {
+      if (plant.x === gridX && plant.y === gridY) {
+        occupied = true;
+      }
+    }
+
+    if (!occupied) {
+      plants.push(new Plants(gridX,gridY-20,selectedPlant, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
+    }
+   
 
     selectedPlant = undefined;
   }

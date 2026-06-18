@@ -6,7 +6,8 @@ class Plants{
     this.animation= {
       idle:idle,
       attack:attack,
-      chew:chomperChew
+      chew:chomperChew,
+      glow:sunflowerGlow
     },
     this.hp= 100,
     this.frame= 0,
@@ -15,6 +16,9 @@ class Plants{
     this.currentAnimation;
     this.bulletImg = bullet;
     this.bullets = [];
+    this.sunStart = millis();
+    this.sunCurrent = 0;
+    this.sunElapsed = 0;
   }
 
   idle(){
@@ -44,6 +48,32 @@ class Plants{
   }
 
   display(){
+    if (this.type === "Sunflower") {
+
+      this.sunCurrent = millis();
+      this.sunElapsed = this.sunCurrent - this.sunStart;
+    
+      // start glow
+      if (this.sunElapsed >= 6000 && this.state !== "glow") {
+        this.state = "glow";
+        this.frame = 0; // reset animation
+      }
+    
+      // spawn sun
+      if (this.sunElapsed >= 7000) {
+    
+        suns.push({
+          x: this.x,
+          y: this.y
+        });
+    
+        this.state = "idle";     // 🔥 RESET STATE HERE
+        this.sunStart = millis(); // restart timer
+        this.frame = 0;          // reset animation
+      }
+    }
+    
+    
     if (this.type === "Wallnut" && this.hp <= 40) {
       this.state = "Cracked2";
       
@@ -57,6 +87,10 @@ class Plants{
     else if (this.state === "attack") {
       this.currentAnimation = this.animation.attack;
     }
+    else if (this.state === "glow") {
+      this.currentAnimation = this.animation.glow;
+    }
+    
     if(frameCount % this.speed === 0){
       this.frame++;
     }
@@ -69,16 +103,12 @@ class Plants{
       if (this.type === "Chomper") {
         for(let z of zombies){ //Damage of the bullets
           if (abs(this.y - z.y) < 70 && abs(z.x - this.x) < 60 ) {
-           z.hp -= (100/3);
+           z.hp -= (100/5);
            console.log(1);
-           
-           
-            this.currentAnimation = this.animation.chew
-           
+          this.currentAnimation = this.animation.chew
           }
         }
       }
-      
       //Generate a new bullet for Pea Shooter
       if (this.type === "Pea" && this.state === "attack") {
         this.bullets.push({img:loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png"), x:this.x, y:this.y});
@@ -95,11 +125,5 @@ class Plants{
     
     //MOve to the next frame
     
-  }
-
-  sunflowerGlow(){
-    if (this.type === "Sunflower") {
-      
-    }
   }
 }

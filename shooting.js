@@ -40,7 +40,7 @@ function shoot(){
       plant.state = "attack";
       plant.shoot();
     }
-    else {
+    else if(!zombieInRange && plant.type !== "Sunflower"){
       plant.state = "idle";
     }
   }

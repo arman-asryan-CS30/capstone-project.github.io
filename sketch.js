@@ -36,6 +36,8 @@ let sunElapsed;
 let zombieStart; let zombieCurrent;
 let zombieElapsed;
 
+
+
 let suns = []; //Keep the suns in an array
 
 //
@@ -137,6 +139,10 @@ async function loadAssets(){
   for (let i = 1; i < 7; i++) {
     sunflowerIdle.push(loadImage("./assets/Sunflower/Idle/sunflower-idle"+i+".png"))
   }
+
+  for (let i = 1; i < 4; i++) {
+    sunflowerGlow.push(loadImage("./assets/Sunflower/Glow/glow"+i+".png"))
+  }
 }
 
 
@@ -235,15 +241,16 @@ function draw() {
   //Timer for Zombie spawn
   zombieCurrent = millis();
   zombieElapsed = zombieCurrent - zombieStart;
+
   
   background(220);
   
 
   
-  //  if (!gameOn) {
-  //   menu()
-  // }
-  //  else{
+   if (!gameOn) {
+    menu()
+  }
+   else{
   drawGrid(grid);
   charactersBar();
   display()
@@ -252,13 +259,11 @@ function draw() {
   shoot();
       
   if (sunElapsed > 3000) { //Generate new sun every 5 seconds
-    
     sunStart = millis();
     suns.push({x:round(random(width)), y:0});
   }
 
   if (zombieElapsed > 6000) { //Generate new sun every 5 seconds
-    
     zombieStart = millis();
     generateZombie();
   }
@@ -268,8 +273,9 @@ function draw() {
     
   //}
 }
+}
 
-function mousePressed() {
+function mousePressed() { 
   collectSun();
 
   // Clicking Pea Shooter in character bar
@@ -289,7 +295,7 @@ function mousePressed() {
 
   if (
     mouseX >= 300 &&
-    mouseX <= 500 &&
+    mouseX <= 450 &&
     mouseY >= 0 &&
     mouseY <= 150  &&
     sunScore >= 250
@@ -302,8 +308,8 @@ function mousePressed() {
   }
 
   if (
-    mouseX >= 500 &&
-    mouseX <= 700 &&
+    mouseX >= 450 &&
+    mouseX <= 600 &&
     mouseY >= 0 &&
     mouseY <= 150  &&
     sunScore >= 250
@@ -317,7 +323,7 @@ function mousePressed() {
 
   if (
     mouseX >= 600 &&
-    mouseX <= 800 &&
+    mouseX <= 750 &&
     mouseY >= 0 &&
     mouseY <= 150  &&
     sunScore >= 100
@@ -329,11 +335,11 @@ function mousePressed() {
   }
 
   if (
-    mouseX >= 800 &&
+    mouseX >= 750 &&
     mouseX <= 900 &&
     mouseY >= 0 &&
     mouseY <= 150  &&
-    sunScore >= 100
+    sunScore >= 50
   ) {
     selectedPlant = sunflowerIdle;
     sunScore -= 50;
