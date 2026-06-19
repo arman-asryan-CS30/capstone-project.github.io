@@ -20,14 +20,15 @@ function placeCharacter() {
     let occupied = false;
 
     for (let plant of plants) {
-      if (plant.x === gridX && plant.y === gridY) {
+      if (plant.x === gridX && plant.y === gridY - 20) {
         occupied = true;
       }
     }
-
     if (!occupied) {
-      plants.push(new Plants(gridX,gridY-20,selectedPlant, plantAttack, loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png")));
-    }
+    plants.push(new Plants(gridX,gridY - 20,selectedPlant,plantAttack,loadImage("./assets/Pea Shooter/Projectile/pea-projectile.png"))
+  );
+}
+    
    
 
     selectedPlant = undefined;
